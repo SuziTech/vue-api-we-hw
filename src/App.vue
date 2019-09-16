@@ -6,7 +6,7 @@
         <the-intro-title :the-introduction-title="theIntroductionTitle"></the-intro-title>
         <the-intro-description :the-introduction-descscription="theIntroductionDescription"></the-intro-description>
       <!-- <gdp-section :gdp-part="gdpPart"></gdp-section> -->
-        <gdp-countries-list :gdp-countries="gdpCountries"></gdp-countries-list>
+        <gdp-countries-list :gdpCountries="gdpCountries"></gdp-countries-list>
         <gdp-country-detail :gdp-country="selectedGdpCountry"></gdp-country-detail>
     </div>
   </div>
@@ -18,6 +18,7 @@ import TheIntroTitle from './components/TheIntroTitle.vue'
 import TheIntroDescription from './components/TheIntroDescription.vue'
 import GdpCountriesList from './components/GdpCountriesList.vue'
 import GdpCountryDetail from './components/GdpCountryDetail.vue'
+import gdpCountriesJSON from './GDP-Countries-Table-2018.js'
 
 export default {
     data(){
@@ -38,13 +39,16 @@ export default {
       this.fetchData();
     },
     methods: {
-      json: './GDP-Countries-Table-2018.json',
       fetchData: function() {
-        var self = this;
-        this.getJSON(json, function(data) {
-                  self.GdpCountriesList = data;
-                  console.log(data);
-        });
+        // var self = this;
+        // this.getJSON(json, function(data) {
+        //           self.gdpCountries = data;
+        //           console.log("data", data);
+        // });
+        this.gdpCountries = JSON.parse(gdpCountriesJSON)
+        eventBus.$on('gdp-country', (country) => {
+          this.selectedGdpCountry = country
+        })
       }
 
     // mounted() {
@@ -56,9 +60,7 @@ export default {
     //     self.gdpLeagueTable = json_data.data
     //   })
     //
-      eventBus.$on('gdp-country', (country) => {
-        this.selectedGdpCountry = country
-      })
+
     }
 }
 

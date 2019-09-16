@@ -1,4 +1,4 @@
-[
+export default `[
   {
     "Country Code": "WLD",
     "Country Name": "World",
@@ -71,4 +71,4 @@
     "Value": 0.0,
     "Year": 2018
   }
-]
+]`
